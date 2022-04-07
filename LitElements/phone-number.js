@@ -1,22 +1,45 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, css} from 'lit';
 
 export class PhoneNumber extends LitElement {
 
+  static get styles() {
+    return css`
+      #main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      }
+    `
+  }
+
   static properties = {
     placeholder: {},
+    unique: {},
+    required: {},
+    regex: {},
+    max: {},
+    message: {},
   }
 
   constructor() {
     super();
     this.phoneNumber = '';
     this.error = null;
-    this.touched = false;
+    this.required = null;
+    this.placeholder = "phone number";
+    this.standardRegex =  /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+    this.max = null;
+    this.message = null;
+    this.unique = `PhoneNumberId${Math.round(10000*Math.random())}`
   }
 
   render() {
     return html`
-      <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
-      <div ?hidden=${!this.error}>${this.error}</div>
+      <div id="main">
+        <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
+        <div ?hidden=${!this.error}>${this.error}</div>
+      </div>
     `;
   }
 
@@ -26,6 +49,10 @@ export class PhoneNumber extends LitElement {
 
   getPlaceholder() {
     return this.placeholder
+  }
+
+  getUnique() {
+    return this.unique
   }
 
   handleBlur() {
@@ -43,12 +70,20 @@ export class PhoneNumber extends LitElement {
   validation() {
     let error = null;
 
-    const regex=  /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+    const max = RegExp(String.raw`^.{0,${this.max}}$`)
+    const regex = RegExp(String.raw`${this.regex}`)
 
-    if (!this.phoneNumber) {
+    //error if field is left blank
+    if (this.required && !this.phoneNumber) {
+      // console.log(this.required)
       error = 'Required';
-    } else if (this.phoneNumber.length > 9 && !regex.test(this.phoneNumber)) {
-      error = 'Invalid phone number: (xxx-xxx-xxxx)';
+      //error if phone number is too long
+    } else if (this.regex && this.message && !regex.test(this.phoneNumber)) {
+      error = this.message
+    }  else if (this.max && !max.test(this.phoneNumber)) {
+      error = `Must be less than ${this.max} characters`;
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.phoneNumber)) {
+      error = 'Invalid Phone Number (XXX-XXX-XXXX)'
     }
 
     return error;

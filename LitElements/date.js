@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 
-export class Name extends LitElement {
+export class Date extends LitElement {
 
   static get styles() {
     return css`
@@ -24,27 +24,27 @@ export class Name extends LitElement {
 
   constructor() {
     super();
-    this.name = '';
+    this.date = '';
     this.error = null;
     this.required = null;
-    this.placeholder = "name";
+    this.placeholder = "date";
     this.regex =  null;
     this.max = null;
     this.message = null;
-    this.unique = `NameId${Math.round(10000*Math.random())}`
+    this.unique = `DateID${Math.round(10000*Math.random())}`
   }
 
   render() {
     return html`
       <div id="main">
-        <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
+        <input min="2021-1-1" max="2022-1-1" @blur=${this.handleBlur} @input=${this.handleInput} type="date" placeholder=${this.placeholder}>
         <div ?hidden=${!this.error}>${this.error}</div>
       </div>
     `;
   }
 
   getValue() {
-    return this.name
+    return this.date
   }
 
   getPlaceholder() {
@@ -64,8 +64,10 @@ export class Name extends LitElement {
 
   //handles user input. update's state and applies error validation with each character input
   handleInput(event) {
+    console.log(event.target.value)
+    console.log(event.target.valueAsNumber)
     const { value } = event.target;
-    this.name = value
+    this.date = value
     this.error = this.validation();
     this.requestUpdate();
   }
@@ -78,13 +80,13 @@ export class Name extends LitElement {
     const regex = RegExp(String.raw`${this.regex}`)
 
     //error if field is left blank
-    if (this.required && !this.name) {
+    if (this.required && !this.date) {
       // console.log(this.required)
       error = 'Required';
-      //error if name is too long
-    } else if (this.regex && this.message && !regex.test(this.name)) {
+      //error if date is too long
+    } else if (this.regex && this.message && !regex.test(this.date)) {
       error = this.message
-    } else if (this.max && !max.test(this.name)) {
+    } else if (this.max && !max.test(this.date)) {
       error = `Must be less than ${this.max} characters`;
     }
 
@@ -93,4 +95,4 @@ export class Name extends LitElement {
 
 }
 
-window.customElements.define('name-', Name)
+window.customElements.define('date-', Date)

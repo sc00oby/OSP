@@ -1,22 +1,45 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, css} from 'lit';
 
 export class Password extends LitElement {
 
+  static get styles() {
+    return css`
+      #main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      }
+    `
+  }
+
   static properties = {
     placeholder: {},
+    unique: {},
+    required: {},
+    regex: {},
+    max: {},
+    message: {},
   }
 
   constructor() {
     super();
     this.password = '';
     this.error = null;
-    this.touched = false;
+    this.required = null;
+    this.placeholder = "password";
+    this.standardRegex =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    this.max = null;
+    this.message = null;
+    this.unique = `PasswordId${Math.round(10000*Math.random())}`
   }
 
   render() {
     return html`
-      <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
-      <div ?hidden=${!this.error}>${this.error}</div>
+      <div id="main">
+        <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
+        <div ?hidden=${!this.error}>${this.error}</div>
+      </div>
     `;
   }
 
@@ -26,6 +49,10 @@ export class Password extends LitElement {
 
   getPlaceholder() {
     return this.placeholder
+  }
+
+  getUnique() {
+    return this.unique
   }
 
   handleBlur() {
@@ -43,12 +70,20 @@ export class Password extends LitElement {
   validation() {
     let error = null;
 
-    const regex=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    const max = RegExp(String.raw`^.{0,${this.max}}$`)
+    const regex = RegExp(String.raw`${this.regex}`)
 
-    if (!this.password) {
+    //error if field is left blank
+    if (this.required && !this.password) {
+      // console.log(this.required)
       error = 'Required';
-    } else if (!regex.test(this.password)) {
-      error = 'Invalid password';
+      //error if password is too long
+    } else if (this.regex && this.message && !regex.test(this.password)) {
+      error = this.message
+    }  else if (this.max && !max.test(this.password)) {
+      error = `Must be less than ${this.max} characters`;
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.password)) {
+      error = 'Invalid Password'
     }
 
     return error;

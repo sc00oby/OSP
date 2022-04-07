@@ -1,22 +1,46 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, css} from 'lit';
 
 export class Email extends LitElement {
 
+  static get styles() {
+    return css`
+      #main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      }
+    `
+  }
+
   static properties = {
     placeholder: {},
+    unique: {},
+    required: {},
+    regex: {},
+    max: {},
+    message: {},
   }
 
   constructor() {
     super();
     this.email = '';
     this.error = null;
-    this.touched = false;
+    this.required = null;
+    this.placeholder = "email";
+    // eslint-disable-next-line no-useless-escape
+    this.standardRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    this.max = null;
+    this.message = null;
+    this.unique = `EmailId${Math.round(10000*Math.random())}`
   }
 
   render() {
     return html`
-      <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
-      <div ?hidden=${!this.error}>${this.error}</div>
+      <div id="main">
+        <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
+        <div ?hidden=${!this.error}>${this.error}</div>
+      </div>
     `;
   }
 
@@ -26,6 +50,10 @@ export class Email extends LitElement {
 
   getPlaceholder() {
     return this.placeholder
+  }
+
+  getUnique() {
+    return this.unique
   }
 
   //handles blur events. applies error validation if user interacts with this field
@@ -46,14 +74,20 @@ export class Email extends LitElement {
   validation() {
     let error = null;
 
-    
+    const max = RegExp(String.raw`^.{0,${this.max}}$`)
+    const regex = RegExp(String.raw`${this.regex}`)
 
     //error if field is left blank
-    if (!this.email) {
+    if (this.required && !this.email) {
+      // console.log(this.required)
       error = 'Required';
-      //checks for valid email string
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.email)) {
-      error = 'Invalid Email';
+      //error if email is too long
+    } else if (this.regex && this.message && !regex.test(this.email)) {
+      error = this.message
+    }  else if (this.max && !max.test(this.email)) {
+      error = `Must be less than ${this.max} characters`;
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.email)) {
+      error = 'Invalid Email'
     }
 
     return error;
