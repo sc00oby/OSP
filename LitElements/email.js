@@ -14,7 +14,9 @@ export class Email extends LitElement {
   }
 
   static properties = {
+    val: {},
     placeholder: {},
+    id: {},
     unique: {},
     required: {},
     regex: {},
@@ -24,7 +26,7 @@ export class Email extends LitElement {
 
   constructor() {
     super();
-    this.email = '';
+    this.val = '';
     this.error = null;
     this.required = null;
     this.placeholder = "email";
@@ -45,7 +47,7 @@ export class Email extends LitElement {
   }
 
   getValue() {
-    return this.email
+    return this.val
   }
 
   getPlaceholder() {
@@ -65,7 +67,7 @@ export class Email extends LitElement {
   //handles user input. update's state and applies error validation with each character input
   handleInput(event) {
     const { value } = event.target;
-    this.email = value
+    this.val = value
     this.error = this.validation();
     this.requestUpdate();
   }
@@ -78,15 +80,15 @@ export class Email extends LitElement {
     const regex = RegExp(String.raw`${this.regex}`)
 
     //error if field is left blank
-    if (this.required && !this.email) {
+    if (this.required && !this.val) {
       // console.log(this.required)
       error = 'Required';
-      //error if email is too long
-    } else if (this.regex && this.message && !regex.test(this.email)) {
+      //error if val is too long
+    } else if (this.regex && this.message && !regex.test(this.val)) {
       error = this.message
-    }  else if (this.max && !max.test(this.email)) {
+    }  else if (this.max && !max.test(this.val)) {
       error = `Must be less than ${this.max} characters`;
-    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.email)) {
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.val)) {
       error = 'Invalid Email'
     }
 

@@ -29,13 +29,13 @@ export class Test extends LitElement {
 
     return html`
       <div id="main">
-        <!-- <name- required="true" max="10" placeholder="baboons"></name->
-        <name- placeholder="country"></name->
-        <email- required="true"  ></email->
-        <password- required="true" max="11"></password-> -->
+        <!-- <name-  placeholder="country" max="15" regex="^[a-zA-Z]+$" message="you suck"></name-> -->
+        <!-- <name- unique="blah" placeholder="country"></name-> -->
+        <!-- <email- required="true"  ></email->
+        <password- required="true" max="11"></password->
         <phone-number required="true" regex="^[codesmithCODESMITH]+$" message="you an idiot"></phone-number>
-        <date- required="true"></date->
-        <input @click=${() => this.ourFunc(this.handleSubmit)} type='submit'>
+        <date- required="true"></date-> -->
+        <button @click=${() => this.ourFunc(this.handleSubmit)} type='submit'>submit</button>
       </div>
     `;
   }

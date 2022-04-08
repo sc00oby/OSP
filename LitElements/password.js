@@ -24,7 +24,7 @@ export class Password extends LitElement {
 
   constructor() {
     super();
-    this.password = '';
+    this.val = '';
     this.error = null;
     this.required = null;
     this.placeholder = "password";
@@ -44,7 +44,7 @@ export class Password extends LitElement {
   }
 
   getValue() {
-    return this.password
+    return this.val
   }
 
   getPlaceholder() {
@@ -62,7 +62,7 @@ export class Password extends LitElement {
 
   handleInput(event) {
     const { value } = event.target;
-    this.password = value
+    this.val = value
     this.error = this.validation();
     this.requestUpdate();
   }
@@ -74,15 +74,15 @@ export class Password extends LitElement {
     const regex = RegExp(String.raw`${this.regex}`)
 
     //error if field is left blank
-    if (this.required && !this.password) {
+    if (this.required && !this.val) {
       // console.log(this.required)
       error = 'Required';
-      //error if password is too long
-    } else if (this.regex && this.message && !regex.test(this.password)) {
+      //error if val is too long
+    } else if (this.regex && this.message && !regex.test(this.val)) {
       error = this.message
-    }  else if (this.max && !max.test(this.password)) {
+    }  else if (this.max && !max.test(this.val)) {
       error = `Must be less than ${this.max} characters`;
-    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.password)) {
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.val)) {
       error = 'Invalid Password'
     }
 

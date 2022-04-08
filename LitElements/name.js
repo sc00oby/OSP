@@ -24,7 +24,7 @@ export class Name extends LitElement {
 
   constructor() {
     super();
-    this.name = '';
+    this.val = '';
     this.error = null;
     this.required = null;
     this.placeholder = "name";
@@ -44,7 +44,7 @@ export class Name extends LitElement {
   }
 
   getValue() {
-    return this.name
+    return this.val
   }
 
   getPlaceholder() {
@@ -57,7 +57,6 @@ export class Name extends LitElement {
 
   //handles blur events. applies error validation if user interacts with this field
   handleBlur() {
-    console.log(this.required)
     this.error = this.validation()
     this.requestUpdate()
   }
@@ -65,7 +64,7 @@ export class Name extends LitElement {
   //handles user input. update's state and applies error validation with each character input
   handleInput(event) {
     const { value } = event.target;
-    this.name = value
+    this.val = value
     this.error = this.validation();
     this.requestUpdate();
   }
@@ -78,13 +77,12 @@ export class Name extends LitElement {
     const regex = RegExp(String.raw`${this.regex}`)
 
     //error if field is left blank
-    if (this.required && !this.name) {
-      // console.log(this.required)
+    if (this.required && !this.val) {
       error = 'Required';
-      //error if name is too long
-    } else if (this.regex && this.message && !regex.test(this.name)) {
+      //error if val is too long
+    } else if (this.regex && this.message && !regex.test(this.val)) {
       error = this.message
-    } else if (this.max && !max.test(this.name)) {
+    } else if (this.max && !max.test(this.val)) {
       error = `Must be less than ${this.max} characters`;
     }
 
