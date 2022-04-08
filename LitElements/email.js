@@ -17,7 +17,6 @@ export class Email extends LitElement {
     val: {},
     placeholder: {},
     id: {},
-    unique: {},
     required: {},
     regex: {},
     max: {},
@@ -34,7 +33,7 @@ export class Email extends LitElement {
     this.standardRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.max = null;
     this.message = null;
-    this.unique = `EmailId${Math.round(10000*Math.random())}`
+    this.id = `EmailId${Math.round(10000*Math.random())}`
   }
 
   render() {
@@ -55,7 +54,7 @@ export class Email extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   //handles blur events. applies error validation if user interacts with this field

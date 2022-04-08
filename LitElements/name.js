@@ -16,7 +16,7 @@ export class Name extends LitElement {
 
   static properties = {
     placeholder: {},
-    unique: {},
+    id: {},
     required: {},
     regex: {},
     max: {},
@@ -33,7 +33,7 @@ export class Name extends LitElement {
     this.regex =  null;
     this.max = null;
     this.message = null;
-    this.unique = `NameId${Math.round(10000*Math.random())}`;
+    this.id = `NameId${Math.round(10000*Math.random())}`;
     this.styles = {color: 'lightgreen', fontFamily: 'Roboto'};
   }
 
@@ -55,7 +55,7 @@ export class Name extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   //handles blur events. applies error validation if user interacts with this field

@@ -31,14 +31,14 @@ export class Test extends LitElement {
     
     return html`
       <div id="main">
-        <name- max='15' placeholder="first name" required="true" unique="first name" .styles=${{color:'blue'}} ></name->
-        <name- placeholder="last name" required="true" unique="first name"></name->
-        <email- placeholder="email" required="true" unique="email"></email->
-        <password- placeholder="password" required="true" unique="password"></password->
-        <phone-number placeholder="phone number 1" required="true" unique="phone number 1"></phone-number>
-        <phone-number placeholder="phone number 2" required="true" unique="phone number 2"></phone-number>
-        <input type="date" unique="date" id="date"> 
-        <input type="email" unique="best" id="best">
+        <name- max='15' placeholder="first name" required="true" id="first name" .styles=${{color:'blue'}} ></name->
+        <name- placeholder="last name" required="true" id="last name"></name->
+        <email- placeholder="email" required="true" id="email"></email->
+        <password- placeholder="password" required="true" id="password"></password->
+        <phone-number placeholder="phone number 1" required="true" id="phone number 1"></phone-number>
+        <phone-number placeholder="phone number 2" required="true" id="phone number 2"></phone-number>
+        <input type="date" id="date" > 
+        <input type="email" id="best" >
         <input type="submit" @click=${() => {this.ourFunc(this.handleSubmit)}} id="submit">
       </div>
     `;
@@ -57,8 +57,8 @@ export class Test extends LitElement {
       if (!isNaN(Number(singleElement))) { //first conditional: removes extraneous methods/prototypical stuff; second conditional: removes the submit button or any other developer added input fields (since we don't handle those data validations)
         if (formElements[singleElement].validation) {
           formElementsCheck = formElementsCheck && !formElements[singleElement].validation()
-          const { val, unique } = formElements[singleElement]
-          cache[unique] = val
+          const { val, id } = formElements[singleElement]
+          cache[id] = val
         } else {
           const { id, value } = formElements[singleElement]
           cache[id] = value

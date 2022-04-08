@@ -15,7 +15,7 @@ export class PhoneNumber extends LitElement {
 
   static properties = {
     placeholder: {},
-    unique: {},
+    id: {},
     required: {},
     regex: {},
     max: {},
@@ -31,7 +31,7 @@ export class PhoneNumber extends LitElement {
     this.standardRegex =  /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
     this.max = null;
     this.message = null;
-    this.unique = `PhoneNumberId${Math.round(10000*Math.random())}`
+    this.id = `PhoneNumberId${Math.round(10000*Math.random())}`
   }
 
   render() {
@@ -52,7 +52,7 @@ export class PhoneNumber extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   handleBlur() {

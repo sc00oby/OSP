@@ -15,7 +15,7 @@ export class Password extends LitElement {
 
   static properties = {
     placeholder: {},
-    unique: {},
+    id: {},
     required: {},
     regex: {},
     max: {},
@@ -31,7 +31,7 @@ export class Password extends LitElement {
     this.standardRegex =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     this.max = null;
     this.message = null;
-    this.unique = `PasswordId${Math.round(10000*Math.random())}`
+    this.id = `PasswordId${Math.round(10000*Math.random())}`
   }
 
   render() {
@@ -52,7 +52,7 @@ export class Password extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   handleBlur() {
