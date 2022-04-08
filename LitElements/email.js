@@ -14,27 +14,27 @@ export class Email extends LitElement {
   }
 
   static properties = {
-    val: {},
     placeholder: {},
     id: {},
-    unique: {},
+    val: {},
     required: {},
     regex: {},
     max: {},
+    error: {},
     message: {},
   }
 
   constructor() {
     super();
-    this.val = '';
-    this.error = null;
-    this.required = null;
     this.placeholder = "email";
-    // eslint-disable-next-line no-useless-escape
+    this.id = `EmailId${Math.round(10000*Math.random())}`;
+    this.val = '',
+    this.required = null;
+    // eslint-disable-next-line no-useless-escape 
     this.standardRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.max = null;
+    this.error = null;    
     this.message = null;
-    this.unique = `EmailId${Math.round(10000*Math.random())}`
   }
 
   render() {

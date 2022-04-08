@@ -13,25 +13,35 @@ export class Name extends LitElement {
     `
   }
 
+  // static styles = css`
+  //  div {
+  //    color: green;
+  //  }
+  // `
+
   static properties = {
     placeholder: {},
-    unique: {},
+    id: {},
+    val: {},
     required: {},
     regex: {},
     max: {},
+    error: {},
     message: {},
+    styles: {}
   }
 
   constructor() {
     super();
+    this.placeholder = 'name';
+    this.id = `NameId${Math.round(10000*Math.random())}`;
     this.val = '';
-    this.error = null;
-    this.required = null;
-    this.placeholder = "name";
-    this.regex =  null;
+    this.required = null,
+    this.standardRegex =  null;
     this.max = null;
+    this.error = null;
     this.message = null;
-    this.unique = `NameId${Math.round(10000*Math.random())}`
+    this.styles = {color: 'lightgreen', fontFamily: 'Roboto'};
   }
 
   render() {

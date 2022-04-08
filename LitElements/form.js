@@ -1,4 +1,6 @@
 import {LitElement, html, css} from 'lit';
+// import {styleMap} from 'lit/directives/style-map.js';
+
 import './email.js'
 import './name.js'
 import './password.js'
@@ -29,7 +31,7 @@ export class Test extends LitElement {
 
     return html`
       <div id="main">
-        <name- placeholder="first name" required="true" unique="first name"></name->
+        <name- placeholder="first name" required="true" unique="first name" styles:{ color: blue, fontFamily: 'Arial'}></name->
         <name- placeholder="last name" required="true" unique="first name"></name->
         <email- placeholder="email" required="true" unique="email"></email->
         <password- placeholder="password" required="true" unique="password"></password->
