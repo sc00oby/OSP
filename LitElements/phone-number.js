@@ -28,7 +28,7 @@ export class PhoneNumber extends LitElement {
     super();
     this.placeholder = 'phone number';
     this.id = `PhoneNumberId${Math.round(10000*Math.random())}`;
-    this.val = '';
+    this.value = '';
     this.required = null;
     this.standardRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
     this.max = null;
@@ -46,7 +46,7 @@ export class PhoneNumber extends LitElement {
   }
 
   getValue() {
-    return this.val
+    return this.value
   }
 
   getPlaceholder() {
@@ -64,7 +64,7 @@ export class PhoneNumber extends LitElement {
 
   handleInput(event) {
     const { value } = event.target;
-    this.val = value
+    this.value = value
     this.error = this.validation();
     this.requestUpdate();
   }
@@ -80,11 +80,11 @@ export class PhoneNumber extends LitElement {
       // console.log(this.required)
       error = 'Required';
       //error if phone number is too long
-    } else if (this.regex && this.message && !regex.test(this.val)) {
+    } else if (this.regex && this.message && !regex.test(this.value)) {
       error = this.message
-    }  else if (this.max && !max.test(this.val)) {
+    }  else if (this.max && !max.test(this.value)) {
       error = `Must be less than ${this.max} characters`;
-    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.val)) {
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.value)) {
       error = 'Invalid Phone Number (XXX-XXX-XXXX)'
     }
 

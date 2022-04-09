@@ -23,7 +23,7 @@ export class Name extends LitElement {
   static properties = {
     placeholder: {},
     id: {},
-    val: {},
+    value: {},
     required: {},
     regex: {},
     max: {},
@@ -36,7 +36,7 @@ export class Name extends LitElement {
     super();
     this.placeholder = 'name';
     this.id = `NameId${Math.round(10000*Math.random())}`;
-    this.val = '';
+    this.value = '';
     this.required = null,
     this.standardRegex =  null;
     this.max = null;
@@ -55,7 +55,7 @@ export class Name extends LitElement {
   }
 
   getValue() {
-    return this.val
+    return this.value
   }
 
   getPlaceholder() {
@@ -92,9 +92,9 @@ export class Name extends LitElement {
     if (this.required && !this.val) {
       error = 'Required';
       //error if val is too long
-    } else if (this.regex && this.message && !regex.test(this.val)) {
+    } else if (this.regex && this.message && !regex.test(this.value)) {
       error = this.message
-    } else if (this.max && !max.test(this.val)) {
+    } else if (this.max && !max.test(this.value)) {
       error = `Must be less than ${this.max} characters`;
     }
 
