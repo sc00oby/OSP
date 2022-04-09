@@ -16,7 +16,7 @@ export class Password extends LitElement {
   static properties = {
     placeholder: {},
     id: {},
-    val: {},
+    value: {},
     required: {},
     regex: {},
     max: {},
@@ -28,7 +28,7 @@ export class Password extends LitElement {
     super();
     this.placeholder = 'password';
     this.id = `PasswordId${Math.round(10000*Math.random())}`;
-    this.val = '';
+    this.value = '';
     this.required = null;
     this.standardRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     this.max = null;
@@ -46,7 +46,7 @@ export class Password extends LitElement {
   }
 
   getValue() {
-    return this.val
+    return this.value
   }
 
   getPlaceholder() {
@@ -80,11 +80,11 @@ export class Password extends LitElement {
       // console.log(this.required)
       error = 'Required';
       //error if val is too long
-    } else if (this.regex && this.message && !regex.test(this.val)) {
+    } else if (this.regex && this.message && !regex.test(this.value)) {
       error = this.message
-    }  else if (this.max && !max.test(this.val)) {
+    }  else if (this.max && !max.test(this.value)) {
       error = `Must be less than ${this.max} characters`;
-    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.val)) {
+    } else if ((!this.regex || !this.message) && !this.standardRegex.test(this.value)) {
       error = 'Invalid Password'
     }
 
