@@ -16,22 +16,24 @@ export class Password extends LitElement {
   static properties = {
     placeholder: {},
     id: {},
+    val: {},
     required: {},
     regex: {},
     max: {},
+    error: {},
     message: {},
   }
 
   constructor() {
     super();
+    this.placeholder = 'password';
+    this.id = `PasswordId${Math.round(10000*Math.random())}`;
     this.val = '';
-    this.error = null;
     this.required = null;
-    this.placeholder = "password";
-    this.standardRegex =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    this.standardRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     this.max = null;
+    this.error = null;
     this.message = null;
-    this.id = `PasswordId${Math.round(10000*Math.random())}`
   }
 
   render() {

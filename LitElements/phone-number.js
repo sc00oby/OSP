@@ -16,22 +16,24 @@ export class PhoneNumber extends LitElement {
   static properties = {
     placeholder: {},
     id: {},
+    val: {},
     required: {},
     regex: {},
     max: {},
+    error: {},
     message: {},
   }
 
   constructor() {
     super();
+    this.placeholder = 'phone number';
+    this.id = `PhoneNumberId${Math.round(10000*Math.random())}`;
     this.val = '';
-    this.error = null;
     this.required = null;
-    this.placeholder = "phone number";
-    this.standardRegex =  /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+    this.standardRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
     this.max = null;
+    this.error = null;
     this.message = null;
-    this.id = `PhoneNumberId${Math.round(10000*Math.random())}`
   }
 
   render() {
