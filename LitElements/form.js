@@ -28,7 +28,7 @@ export class Test extends LitElement {
   render() {
 
     //sample regex that matches only letters: ^[a-zA-Z]+$ ^[codesmithCODESMITH]+$
-
+    
     return html`
       <div id="main">
         <name- placeholder="first name" required="true" unique="first name" styles:{ color: blue, fontFamily: 'Arial'}></name->
@@ -57,8 +57,8 @@ export class Test extends LitElement {
       if (!isNaN(Number(singleElement))) { //first conditional: removes extraneous methods/prototypical stuff; second conditional: removes the submit button or any other developer added input fields (since we don't handle those data validations)
         if (formElements[singleElement].validation) {
           formElementsCheck = formElementsCheck && !formElements[singleElement].validation()
-          const { val, unique } = formElements[singleElement]
-          cache[unique] = val
+          const { val, id } = formElements[singleElement]
+          cache[id] = val
         } else {
           const { id, value } = formElements[singleElement]
           cache[id] = value

@@ -54,7 +54,7 @@ export class Password extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   handleBlur() {

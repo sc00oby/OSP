@@ -55,7 +55,7 @@ export class Email extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   //handles blur events. applies error validation if user interacts with this field

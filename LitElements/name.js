@@ -1,4 +1,5 @@
 import {LitElement, html, css} from 'lit';
+import {styleMap} from 'lit/directives/style-map.js';
 
 export class Name extends LitElement {
 
@@ -48,7 +49,7 @@ export class Name extends LitElement {
     return html`
       <div id="main">
         <input @blur=${this.handleBlur} @input=${this.handleInput} type="text" placeholder=${this.placeholder}>
-        <div ?hidden=${!this.error}>${this.error}</div>
+        <div ?hidden=${!this.error} style=${styleMap(this.styles)}>${this.error}</div>
       </div>
     `;
   }
@@ -62,11 +63,12 @@ export class Name extends LitElement {
   }
 
   getUnique() {
-    return this.unique
+    return this.id
   }
 
   //handles blur events. applies error validation if user interacts with this field
   handleBlur() {
+    console.log(this.styles)
     this.error = this.validation()
     this.requestUpdate()
   }
